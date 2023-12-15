@@ -1,8 +1,13 @@
-use futures::{future, Future, Stream};
-use hyper::rt::{self, Future};
-
 use reqwest::blocking::Client;
 use serde_json::{json, Value};
+use hmac::{Hmac, Mac};
+use sha2::Sha256; // Add this import for HMAC-SHA256
+use hyper::{Body, Request, Response, Server, StatusCode};
+use hyper::service::{service_fn, Service};
+use futures::future;
+use futures::Future;
+use tokio::runtime as rt;
+use std::env;
 
 fn send_discord_webhook(webhook_url: &str, message: &str) -> Result<(), reqwest::Error> {
     let client = Client::new();
