@@ -1,8 +1,6 @@
 use futures::{future, Future, Stream};
-use hyper::{
-    client::HttpConnector, rt, service::service_fn, Body, Client, Request,
-    Response, Server
-};
+use hyper::rt::{self, Future};
+
 use reqwest::blocking::Client;
 use serde_json::{json, Value};
 
